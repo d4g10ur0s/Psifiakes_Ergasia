@@ -1,47 +1,58 @@
 function dict = average(alph ,prob)
-   %   alfavhto   symbol
-   dict = [alph; zeros(1,numel(alph))];%o,ti 8a epistrafei
-   dict(2,:) = "";
-   %
-   epe = [alph; prob];
-   while (~(length(epe(1,:)) == 1 ))% oso ta elements mou einai katw apo 1 se pi8anothta
-       epe = takeit_sorted(epe);   %elements sorted
-       %ta 2 ta kanw 1
-       %ta stoixeia einai sortarismena
-       %pairnw ta 2 mikrotera
-       n = numel(epe(1,:));
-       %prin kanw append 8a valw times
-       %to deksi 8a parei 1
-       mstr = char(epe(1,n));
-       disp("deksi "+mstr);
-       for i =1:strlength(mstr)
-           for j =1:numel(dict(1,:))
-               if mstr(i) == dict(1,j)
-                   dict(2,j)=append(dict(2,j),"1");
+   disp(prob);
+   %%fileID = fopen('D:\Sxolh\4o_Etos\Xeimerino\Psifiakes_Tilepikinonies\Project1\Assignment1\frequencies.txt');
+   alph = readtable('D:\Sxolh\4o_Etos\Xeimerino\Psifiakes_Tilepikinonies\Project1\Assignment1\frequencies.txt','Format','%s%f');
+   %%fclose(fileID);
+   dict = zeros(2,length(alph{:,1}));
+   tdict = zeros(2,length(alph{:,1}));%temporary
+   dict = string(dict);
+   tdict = string(tdict);
+   %proetoimasia
+   for i = 1:length(alph{:,1})%vazw katallhles times
+       a = alph{i,1};%to gramma
+       if a{1} == 'space'
+           dict(1,i) = ' ';
+           tdict(1,i) = ' ';
+       else
+           dict(1,i) = a{1};
+           tdict(1,i) = a{1};
+       end
+       a = alph{i,2};%h pi8anothta
+       tdict(2,i) = a;
+       dict(2,i) = "";%to code
+   end
+   %proetoimasia
+   while numel(tdict(1,:)) > 1
+       tdict = takeit_sorted(tdict);
+       disp(tdict);
+       %sum and merge
+       n = numel(tdict(1,:));%posa elements to tdict
+       tdict(2,n-1)= str2double(tdict(2,n-1))+str2double(tdict(2,n));%sum tis pi8anothtes
+       %b = tdict(1,1);
+       %disp(b);
+       for j = 1:strlength(tdict( 1, n - 1 ) )%gia ka8e element mesa sto aristero string
+           for i = 1:numel(dict(1,:))%vriskw se poia 8esh anhkei
+               b = char( tdict( 1 , n-1) );
+               if char(dict(1,i)) == b(j)
+                   dict(2,i) = append(dict(2,i), "0");
                    break;
                end
            end
        end
-       %to aristero 8a parei 0
-       mstr = char(epe(1,n-1));
-       disp("aristero " + mstr);
-       for i =1:strlength(mstr)
-           for j =1:numel(dict(1,:))
-               if mstr(i) == dict(1,j)
-                   dict(2,j)=append(dict(2,j),"0");
+       for j = 1:strlength(tdict( 1, n ))%gia ka8e element mesa sto deksi string
+           for i = 1:numel(dict(1,:))%vriskw se poia 8esh anhkei
+               b = char( tdict( 1 , n) );
+               if char(dict(1,i)) == b(j)
+                   dict(2,i) = append(dict(2,i), "1");
                    break;
                end
            end
        end
-       epe(1,n-1)= append(epe(1,n-1),epe(1,n));
-       epe(2,n-1)= str2double(epe(2,n-1))+str2double(epe(2,n));
-       epe = epe(:,1:n-1);
+       %prepei na mergarw ke na meiwsw
+       tdict(1,n-1) = append(tdict(1,n-1),tdict(1,n));%merge ta codes
+       tdict = tdict(:,1:n-1);
+       disp("neo");
        disp(dict);
    end
-end
-
-function mdict = takeit_sorted(dict)
-   [d,mprob] = sort(dict(2,:));%pairnw sortarisma +fwna me pi8anothtes
-   dict = dict(:,flip(mprob));
-   mdict = dict;
+   
 end
