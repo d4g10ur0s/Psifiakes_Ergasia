@@ -1,7 +1,8 @@
-function dict = average(alph ,prob)
+function dict = hffmndict(alph ,prob)
    disp(prob);
    %%fileID = fopen('D:\Sxolh\4o_Etos\Xeimerino\Psifiakes_Tilepikinonies\Project1\Assignment1\frequencies.txt');
    alph = readtable('D:\Sxolh\4o_Etos\Xeimerino\Psifiakes_Tilepikinonies\Project1\Assignment1\frequencies.txt','Format','%s%f');
+   mystring = fileread('D:\Sxolh\4o_Etos\Xeimerino\Psifiakes_Tilepikinonies\Project1\Assignment1\cvxopt.txt');
    %%fclose(fileID);
    dict = zeros(2,length(alph{:,1}));
    tdict = zeros(2,length(alph{:,1}));%temporary
@@ -24,12 +25,10 @@ function dict = average(alph ,prob)
    %proetoimasia
    while numel(tdict(1,:)) > 1
        tdict = takeit_sorted(tdict);
-       disp(tdict);
+       %disp(tdict);
        %sum and merge
        n = numel(tdict(1,:));%posa elements to tdict
        tdict(2,n-1)= str2double(tdict(2,n-1))+str2double(tdict(2,n));%sum tis pi8anothtes
-       %b = tdict(1,1);
-       %disp(b);
        for j = 1:strlength(tdict( 1, n - 1 ) )%gia ka8e element mesa sto aristero string
            for i = 1:numel(dict(1,:))%vriskw se poia 8esh anhkei
                b = char( tdict( 1 , n-1) );
@@ -51,8 +50,11 @@ function dict = average(alph ,prob)
        %prepei na mergarw ke na meiwsw
        tdict(1,n-1) = append(tdict(1,n-1),tdict(1,n));%merge ta codes
        tdict = tdict(:,1:n-1);
-       disp("neo");
-       disp(dict);
    end
-   
+   disp(dict);
+   dict(2,:) = reverse(dict(2,:));
+   enc = enchuff(dict,mystring);
+   dec = dechuff(dict,enc);
+   disp(enc);
+   disp(dec);
 end
