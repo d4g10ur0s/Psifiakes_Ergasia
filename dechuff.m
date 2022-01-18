@@ -1,4 +1,5 @@
 function dec = dechuff(dict,mstr)
+    
     tstr = mstr;%to code pou kanw decode
     dec = "";%arxika to dec den einai tpt
     j = 1;%enas counter gia na perasw to string
