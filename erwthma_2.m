@@ -87,15 +87,6 @@ function mdict = takeit_sorted(dict)
    mdict = dict;
 end
 
-function mdict = sum_and_code(dict)
-    %ta stoixeia einai sortarismena
-    %pairnw ta 2 mikrotera
-    n = numel(dict(1,:));
-    dict(2,n-1)= str2double(dict(2,n-1))+str2double(dict(2,n));
-    mdict = dict(:,:);
-end
-
-
 function enc = enchuff(dict,mstr)
 
     %prepei na parw ka8e element tou mstr ke na vrw ti code einai mesa sto
