@@ -1,9 +1,4 @@
-function dict = hffmndict(alph ,prob)
-   disp(prob);
-   %%fileID = fopen('D:\Sxolh\4o_Etos\Xeimerino\Psifiakes_Tilepikinonies\Project1\Assignment1\frequencies.txt');
-   alph = readtable('D:\Sxolh\4o_Etos\Xeimerino\Psifiakes_Tilepikinonies\Project1\Assignment1\frequencies.txt','Format','%s%f');
-   mystring = fileread('D:\Sxolh\4o_Etos\Xeimerino\Psifiakes_Tilepikinonies\Project1\Assignment1\cvxopt.txt');
-   %%fclose(fileID);
+function dict = hffmndict(alph)
    dict = zeros(2,length(alph{:,1}));
    tdict = zeros(2,length(alph{:,1}));%temporary
    dict = string(dict);
@@ -11,13 +6,8 @@ function dict = hffmndict(alph ,prob)
    %proetoimasia
    for i = 1:length(alph{:,1})%vazw katallhles times
        a = alph{i,1};%to gramma
-       if a{1} == 'space'
-           dict(1,i) = ' ';
-           tdict(1,i) = ' ';
-       else
-           dict(1,i) = a{1};
-           tdict(1,i) = a{1};
-       end
+       dict(1,i) = a{1};
+       tdict(1,i) = a{1};
        a = alph{i,2};%h pi8anothta
        tdict(2,i) = a;
        dict(2,i) = "";%to code
@@ -25,7 +15,6 @@ function dict = hffmndict(alph ,prob)
    %proetoimasia
    while numel(tdict(1,:)) > 1
        tdict = takeit_sorted(tdict);
-       %disp(tdict);
        %sum and merge
        n = numel(tdict(1,:));%posa elements to tdict
        tdict(2,n-1)= str2double(tdict(2,n-1))+str2double(tdict(2,n));%sum tis pi8anothtes
@@ -51,10 +40,6 @@ function dict = hffmndict(alph ,prob)
        tdict(1,n-1) = append(tdict(1,n-1),tdict(1,n));%merge ta codes
        tdict = tdict(:,1:n-1);
    end
-   disp(dict);
-   dict(2,:) = reverse(dict(2,:));
-   enc = enchuff(dict,mystring);
-   dec = dechuff(dict,enc);
-   disp(enc);
-   disp(dec);
+   dict(2,:) = reverse(dict(2,:));%vazw tous kwdikous me thn swsth morfh
+   disp(dict);%apla ena display
 end
