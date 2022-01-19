@@ -1,9 +1,7 @@
-function average()
+function erwthma_3()
    mprob = [];
-   %%fileID = fopen('D:\Sxolh\4o_Etos\Xeimerino\Psifiakes_Tilepikinonies\Project1\Assignment1\frequencies.txt');
    alph = readtable('D:\Sxolh\4o_Etos\Xeimerino\Psifiakes_Tilepikinonies\Project1\Assignment1\frequencies.txt','Format','%s%f');
    mystring = fileread('D:\Sxolh\4o_Etos\Xeimerino\Psifiakes_Tilepikinonies\Project1\Assignment1\cvxopt.txt');
-   %%fclose(fileID);
    dict = zeros(2,length(alph{:,1}));
    tdict = zeros(2,length(alph{:,1}));%temporary
    dict = string(dict);
@@ -26,12 +24,9 @@ function average()
    %proetoimasia
    while numel(tdict(1,:)) > 1
        tdict = takeit_sorted(tdict);
-       %disp(tdict);
        %sum and merge
        n = numel(tdict(1,:));%posa elements to tdict
        tdict(2,n-1)= str2double(tdict(2,n-1))+str2double(tdict(2,n));%sum tis pi8anothtes
-       %b = tdict(1,1);
-       %disp(b);
        for j = 1:strlength(tdict( 1, n - 1 ) )%gia ka8e element mesa sto aristero string
            for i = 1:numel(dict(1,:))%vriskw se poia 8esh anhkei
                b = char( tdict( 1 , n-1) );
@@ -82,17 +77,7 @@ function mdict = takeit_sorted(dict)
    mdict = dict;
 end
 
-function mdict = sum_and_code(dict)
-    %ta stoixeia einai sortarismena
-    %pairnw ta 2 mikrotera
-    n = numel(dict(1,:));
-    dict(2,n-1)= str2double(dict(2,n-1))+str2double(dict(2,n));
-    mdict = dict(:,:);
-end
-
-
 function enc = enchuff(dict,mstr)
-
     %prepei na parw ka8e element tou mstr ke na vrw ti code einai mesa sto
     %dict
     disp(dict);
