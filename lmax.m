@@ -1,5 +1,15 @@
 function [xq, D] = lmax(x, N, min_value, max_value)
-    x = randn(10000,1);%random x 
+    %x = randn(10000,1);%random x 
+    %h deyterh phgh
+    x = randn(10000,1);
+    mb = 1;
+    ma = ones(10000,1);
+    for i=1:10000
+        ma(i,1) = ma(i,1)/i;
+    end
+
+    x = filter(mb,ma,x);
+    
     pcount = 2^N;%to plh8os twn shmeiwn pou prepei na xwrhsw
     %pairnw tyxaia shmeia kvantismou
     mrange = (max_value - min_value);%orizw step to range
@@ -59,5 +69,5 @@ function [xq, D] = lmax(x, N, min_value, max_value)
             break;
         end
     end
-    disp("SQNR : " + mean( x.^2 ) / mean( (x-xq).^2 ) );
+    disp("SQNR : " + 10*log10( mean( x.^2 ) / mean( (x-xq).^2 ) ) );
 end
