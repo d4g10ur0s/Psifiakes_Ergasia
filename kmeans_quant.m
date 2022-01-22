@@ -1,11 +1,11 @@
 function [xq, D] = kmeans_quant(x, N)
     x = randn(10000,10000);
-    %mb = 1;
-    %ma = ones(10000,1);
-    %for i=1:10000
-    %    ma(i,1) = ma(i,1)/i;
-    %end
-    %x = filter(mb,ma,x);
+    mb = 1;
+    ma = ones(10000,1);
+    for i=1:10000
+        ma(i,1) = ma(i,1)/i;
+    end
+    x = filter(mb,ma,x);
 
     xq = zeros(size(x));
     [idx , centers] = kmeans(x,2^N);%exw parei ta kentroeidh
